@@ -1,0 +1,65 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-py" // this is js by default, change it to py manually
+}
+
+datasource db {
+  provider = "postgresql"
+  url      =  env("DATABASE_URL")
+}
+
+// User model
+model User {
+  id              Int             @id @default(autoincrement())
+  username        String          @unique
+  hashed_password String
+  email           String          @unique
+  created_at      DateTime        @default(now())
+  first_name      String
+  last_name       String
+
+  // Define relationships
+  friendRequestsAsRequestor      FriendRequest[]  @relation("RequestorToFriendRequest")
+  friendRequestsAsRecipient      FriendRequest[]  @relation("RecipientToFriendRequest")
+  friends1                       Friend[]         @relation("User1ToFriend")
+  friends2                       Friend[]         @relation("User2ToFriend")
+  statusUpdates                  StatusUpdate[]   @relation("UserToStatusUpdate")
+}
+
+// FriendRequest model
+model FriendRequest {
+  id            Int       @id @default(autoincrement())
+  requestor     User      @relation("RequestorToFriendRequest", fields: [requestor_id], references: [id])
+  recipient     User      @relation("RecipientToFriendRequest", fields: [recipient_id], references: [id])
+  status        String
+  created_at    DateTime  @default(now())
+
+  requestor_id  Int
+  recipient_id  Int
+}
+
+// Friend model
+model Friend {
+  id           Int       @id @default(autoincrement())
+  user1        User      @relation("User1ToFriend", fields: [user1_id], references: [id])
+  user2        User      @relation("User2ToFriend", fields: [user2_id], references: [id])
+  created_at   DateTime  @default(now())
+
+  user1_id     Int
+  user2_id     Int
+}
+
+// StatusUpdate model
+model StatusUpdate {
+  id          Int       @id @default(autoincrement())
+  user        User      @relation("UserToStatusUpdate", fields: [user_id], references: [id])
+  status      String
+  created_at  DateTime  @default(now())
+
+  user_id     Int
+}

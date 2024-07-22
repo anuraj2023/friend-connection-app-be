@@ -1,0 +1,26 @@
+model User {
+  id              Int             @id @default(autoincrement())
+  username        String          @unique
+  hashed_password String
+  email           String          @unique
+  created_at      DateTime        @default(now())
+
+  // Define relationships
+  friendRequestsAsRequestor      FriendRequest[]  @relation("RequestorToFriendRequest")
+  friendRequestsAsRecipient      FriendRequest[]  @relation("RecipientToFriendRequest")
+  friends1                       Friend[]         @relation("User1ToFriend")
+  friends2                       Friend[]         @relation("User2ToFriend")
+  statusUpdates                  StatusUpdate[]   @relation("UserToStatusUpdate")
+}
+
+model FriendRequest {
+  id         Int      @id @default(autoincrement())
+  requestor  User     @relation("RequestorToFriendRequest", fields: [requestor_id], references: [id])
+  recipient  User     @relation("RecipientToFriendRequest", fields: [recipient_id], references: [id])
+  status     String
+  created_at  DateTime @default(now())
+
+  requestor_id  Int
+  recipient_id  Int
+}
+
