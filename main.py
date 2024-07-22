@@ -17,7 +17,7 @@ async def lifespan(app: FastAPI):
 app = FastAPI(lifespan=lifespan)
 
 # CORS settings
-origins = ["http://localhost:3000", "https://main--friend-connection-fe.netlify.app"]
+origins = ["http://localhost:3000", "https://friend-connection-fe.netlify.app"]
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
