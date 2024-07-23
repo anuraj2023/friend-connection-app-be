@@ -22,7 +22,6 @@ This is a FastAPI-based backend application for a friend connection platform. It
 Before you begin, ensure you have met the following requirements:
 
 - You have installed Python 3.9 or higher
-- You have a Windows/Linux/Mac machine
 
 ## Setting Up the Project
 
@@ -75,7 +74,11 @@ Once the application is running, you can access the automatically generated API 
 
 ## Deployment
 
-App is deployed on render platform and can be accessed here: https://friend-connection-app-be.onrender.com/docs
+App is deployed on render platform and can be accessed here: 
+
+- https://friend-connection-app-be.onrender.com/docs
+- https://friend-connection-app-be.onrender.com/redoc
+
 
 ## License
 
