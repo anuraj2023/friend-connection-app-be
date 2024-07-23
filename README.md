@@ -79,6 +79,13 @@ App is deployed on render platform and can be accessed here:
 - https://friend-connection-app-be.onrender.com/docs
 - https://friend-connection-app-be.onrender.com/redoc
 
+## Health Check
+
+Health check is setup with the help of: 
+- https://console.cron-job.org/ 
+
+It makes an HTTP request to `/health` endpoint after every 10 minute.
+This also makes sure that the app does not go down on render due to periods of inactivity.
 
 ## License
 
