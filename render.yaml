@@ -1,5 +1,5 @@
 services:
-  # A Docker web service
+  # web service
   - type: web
     name: fastapi-example
     runtime: python
